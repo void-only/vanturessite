@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VANTURE ✦</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+  /* Reset */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+
+  body, html {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(ellipse at center, #0b1220 0%, #000000 90%);
+    color: #e0e6f8;
+    overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Starfield background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle fill="white" cx="5" cy="5" r="1"/><circle fill="white" cx="50" cy="50" r="1"/><circle fill="white" cx="80" cy="80" r="0.5"/></svg>') repeat;
+    background-size: 100px 100px;
+    opacity: 0.15;
+    animation: starShift 120s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  @keyframes starShift {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 100px 100px;
+    }
+  }
+
+  main {
+    max-width: 480px;
+    padding: 2rem 2.5rem;
+    text-align: center;
+    background: rgba(11, 18, 32, 0.6);
+    border-radius: 18px;
+    box-shadow:
+      0 0 12px 2px rgba(224, 230, 248, 0.2),
+      inset 0 0 20px rgba(224, 230, 248, 0.1);
+    backdrop-filter: blur(12px);
+    animation: fadeInUp 1.6s ease forwards;
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 3rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.25em;
+    color: #c4d3f6;
+    text-shadow: 0 0 12px rgba(196, 211, 246, 0.7);
+  }
+
+  h2 {
+    font-weight: 300;
+    font-size: 1.35rem;
+    color: #a3aed8;
+    margin-bottom: 2rem;
+  }
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+    color: #87a9ff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: 1.8px solid #87a9ff;
+    padding: 0.65rem 2.2rem;
+    border-radius: 9999px;
+    transition: all 0.35s ease;
+    box-shadow: 0 0 12px #87a9ff;
+    letter-spacing: 0.12em;
+    user-select: none;
+  }
+  a:hover {
+    background: #87a9ff;
+    color: #0b1220;
+    box-shadow:
+      0 0 20px #a0b9ff,
+      0 0 40px #8f9fff;
+  }
+
+  .contact-info {
+    margin-top: 3rem;
+    font-weight: 300;
+    font-size: 1rem;
+    color: #8fa0cc;
+  }
+  .contact-info a {
+    color: #aabaff;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .contact-info a:hover {
+    color: #d4e0ff;
+  }
+
+  /* Subtle float animation for main */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+</head>
+<body>
+  <main>
+    <h1>VANTURE ✦</h1>
+    <h2>Exploring the cosmic frontier of code and creativity.</h2>
+
+    <a href="#" id="discord-link">Join the Discord Server</a>
+
+    <div class="contact-info" style="margin-top: 2rem;">
+      Or email me at <a href="mailto:voidchan69@gmail.com">voidchan69@gmail.com</a>
+    </div>
+  </main>
+
+  <script>
+    // Discord link placeholder, update href easily later
+    const discordLink = document.getElementById('discord-link');
+    // Example: discordLink.href = 'https://discord.gg/your-server-id';
+    discordLink.href = '#'; // You can update this later with your invite URL
+    discordLink.addEventListener('click', e => {
+      if(discordLink.href === '#') {
+        e.preventDefault();
+        alert('Discord invite link not set yet! Update it in the code.');
+      }
+    });
+  </script>
+</body>
+</html>
