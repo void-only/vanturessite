@@ -1,158 +1,603 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>VANTURE ✦</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VANTURE ✦</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  /* Reset */
-  *, *::before, *::after {
-    margin: 0; padding: 0; box-sizing: border-box;
-  }
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
 
-  body, html {
-    height: 100%;
-    background: radial-gradient(ellipse at center, #0b1220 0%, #000000 95%);
-    font-family: 'Poppins', sans-serif;
-    color: #e0e6f8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-  }
+        /* Enhanced space background */
+        .space-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(120, 219, 255, 0.2) 0%, transparent 50%),
+                linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 25%, #16213e 50%, #0e1a2e 100%);
+        }
 
-  /* Subtle twinkling starfield using CSS */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><circle fill="white" cx="5" cy="5" r="1"/><circle fill="white" cx="50" cy="50" r="1"/><circle fill="white" cx="85" cy="85" r="0.6"/><circle fill="white" cx="110" cy="20" r="0.5"/></svg>') repeat;
-    background-size: 120px 120px;
-    opacity: 0.1;
-    animation: starMove 100s linear infinite;
-    pointer-events: none;
-    z-index: -1;
-  }
-  @keyframes starMove {
-    0% { background-position: 0 0; }
-    100% { background-position: 120px 120px; }
-  }
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
 
-  main {
-    max-width: 600px;
-    background: rgba(11, 18, 32, 0.7);
-    padding: 3rem 4rem;
-    border-radius: 14px;
-    box-shadow:
-      0 0 15px rgba(224, 230, 248, 0.2),
-      inset 0 0 30px rgba(224, 230, 248, 0.1);
-    backdrop-filter: blur(12px);
-    animation: fadeSlideUp 1.5s ease forwards;
-  }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
 
-  h1 {
-    font-weight: 600;
-    font-size: 3.2rem;
-    letter-spacing: 0.15em;
-    margin-bottom: 0.3em;
-    color: #c4d3f6;
-    text-shadow: 0 0 12px rgba(196, 211, 246, 0.7);
-  }
+        .star.small { width: 1px; height: 1px; }
+        .star.medium { width: 2px; height: 2px; }
+        .star.large { width: 3px; height: 3px; }
 
-  h2 {
-    font-weight: 300;
-    font-size: 1.35rem;
-    margin-bottom: 2rem;
-    color: #a3aed8;
-    line-height: 1.45;
-  }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
 
-  section {
-    margin-bottom: 2.5rem;
-  }
+        /* Nebula effect */
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: nebula-drift 20s ease-in-out infinite;
+        }
 
-  p {
-    font-weight: 300;
-    font-size: 1.1rem;
-    color: #b0b9d7;
-    line-height: 1.6;
-  }
+        @keyframes nebula-drift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -30px) scale(1.1); }
+            50% { transform: translate(-30px, 40px) scale(0.9); }
+            75% { transform: translate(-20px, -50px) scale(1.05); }
+        }
 
-  /* Contact links styling */
-  .contact-link {
-    color: #87a9ff;
-    font-weight: 600;
-    text-decoration: none;
-    border-bottom: 1.5px solid transparent;
-    transition: border-color 0.25s ease;
-    cursor: pointer;
-  }
-  .contact-link:hover {
-    border-color: #87a9ff;
-  }
+        /* Comet animation */
+        .comet {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: linear-gradient(45deg, #fff, #64b5f6);
+            border-radius: 50%;
+            animation: comet-fly 15s linear infinite;
+        }
 
-  /* Responsive text sizes */
-  @media (max-width: 520px) {
-    main {
-      padding: 2rem 2.5rem;
-    }
-    h1 {
-      font-size: 2.4rem;
-      letter-spacing: 0.12em;
-    }
-    h2 {
-      font-size: 1.15rem;
-    }
-    p {
-      font-size: 1rem;
-    }
-  }
+        @keyframes comet-fly {
+            0% { transform: translateX(-100px) translateY(200px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(calc(100vw + 100px)) translateY(-200px); opacity: 0; }
+        }
 
-  /* Animation */
-  @keyframes fadeSlideUp {
-    0% {
-      opacity: 0;
-      transform: translateY(25px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>
+        .comet::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 0;
+            width: 30px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(100, 181, 246, 0.8));
+        }
+
+        /* Desktop layout */
+        .main-container {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        /* Profile section */
+        .profile-section {
+            text-align: left;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        /* Animated avatar content */
+        .avatar-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .avatar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+            z-index: 1;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(0%) translateY(0%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #64b5f6, #bb86fc, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            animation: gradient-shift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .bio {
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        /* Cards section */
+        .cards-section {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 181, 246, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(100, 181, 246, 0.4);
+            box-shadow: 0 20px 40px rgba(100, 181, 246, 0.15);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: #64b5f6;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card p {
+            color: #ddd;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Links */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .link-btn {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            text-decoration: none;
+            padding: 18px 28px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.3s ease;
+        }
+
+        .link-btn:hover::before {
+            left: 100%;
+        }
+
+        .link-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(8px);
+            border-color: rgba(100, 181, 246, 0.4);
+        }
+
+        .link-btn.primary {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+
+        .link-btn.primary:hover {
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+            transform: translateX(8px) translateY(-2px);
+        }
+
+        /* Fun section */
+        .fun-section {
+            grid-column: 1 / -1;
+            margin-top: 50px;
+        }
+
+        .fun-section h3 {
+            color: #bb86fc;
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
+        .fun-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .fun-btn {
+            background: rgba(187, 134, 252, 0.1);
+            color: #bb86fc;
+            text-decoration: none;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(187, 134, 252, 0.25);
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fun-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(187, 134, 252, 0.2), transparent);
+            transition: left 0.3s ease;
+        }
+
+        .fun-btn:hover::before {
+            left: 100%;
+        }
+
+        .fun-btn:hover {
+            background: rgba(187, 134, 252, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(187, 134, 252, 0.3);
+        }
+
+        /* Animated icons */
+        .icon {
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        .icon.rocket { animation: rocket-bounce 2s infinite; }
+        .icon.lightning { animation: lightning-flicker 1.5s infinite; }
+        .icon.code { animation: code-blink 3s infinite; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes rocket-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes lightning-flicker {
+            0%, 100% { opacity: 1; }
+            25% { opacity: 0.7; }
+            50% { opacity: 1; }
+            75% { opacity: 0.8; }
+        }
+
+        @keyframes code-blink {
+            0%, 90%, 100% { opacity: 1; }
+            95% { opacity: 0.3; }
+        }
+
+        /* Footer */
+        .footer {
+            grid-column: 1 / -1;
+            margin-top: 60px;
+            color: #555;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 20px;
+            }
+            
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .profile-section {
+                text-align: center;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .avatar {
+                width: 100px;
+                height: 100px;
+                margin: 0 auto 25px;
+            }
+            
+            .fun-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .fun-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <main>
-    <h1>VANTURE ✦</h1>
-    <h2>Welcome to the cosmic frontier of creativity and code.</h2>
+    <div class="space-bg">
+        <div class="stars" id="stars"></div>
+    </div>
 
-    <section>
-      <p>
-        Hey, I’m Void — a digital explorer passionate about blending technology with art.  
-        This space is a simple gateway to connect, share, and collaborate under the vast digital sky.
-      </p>
-    </section>
+    <div class="main-container">
+        <div class="content-wrapper">
+            <!-- Profile Section -->
+            <div class="profile-section">
+                <div class="avatar">
+                    <span class="avatar-content">⚡</span>
+                </div>
+                <h1>VANTURE ✦</h1>
+                <p class="subtitle">void.exe</p>
+                <p class="bio">Tech-obsessed creator who lives for futuristic, space-inspired aesthetics. Into coding, anime edits, and running Discord communities that actually stand out.</p>
+                
+                <div class="links">
+                    <a href="mailto:voidchan69@gmail.com" class="link-btn primary">
+                        <span class="icon lightning">⚡</span> voidchan69@gmail.com
+                    </a>
+                    <a href="https://github.com/void-only" class="link-btn" target="_blank">
+                        <span class="icon code">⚡</span> github
+                    </a>
+                    <a href="#" class="link-btn">
+                        <span class="icon">🎮</span> discord server (soon)
+                    </a>
+                </div>
+            </div>
 
-    <section>
-      <p>
-        Feel free to <a href="#" id="discord-link" class="contact-link">join my Discord server</a> or email me at
-        <a href="mailto:voidchan69@gmail.com" class="contact-link">voidchan69@gmail.com</a>.
-      </p>
-    </section>
-  </main>
+            <!-- Cards Section -->
+            <div class="cards-section">
+                <div class="card">
+                    <h3><span class="icon rocket">🚀</span> what i build</h3>
+                    <p>unique, efficient stuff that's free or cheap to run. minimalism is my vibe — clean, sharp, and practical.</p>
+                </div>
 
-<script>
-  // Placeholder Discord invite link for easy update later
-  const discordLink = document.getElementById('discord-link');
-  discordLink.href = '#'; // Update this with your invite link when ready
-  discordLink.addEventListener('click', e => {
-    if(discordLink.href === '#') {
-      e.preventDefault();
-      alert('Discord invite link not set yet! Update it in the code.');
-    }
-  });
-</script>
+                <div class="card">
+                    <h3><span class="icon">✨</span> current obsessions</h3>
+                    <p>coding late into the night, creating sick anime edits, and building Discord communities that don't suck</p>
+                </div>
+
+                <div class="card">
+                    <h3><span class="icon code">💻</span> tech stack</h3>
+                    <p>whatever gets the job done fast and looks good doing it. always experimenting with new tools and frameworks</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fun Section -->
+        <div class="fun-section">
+            <h3>cool stuff to check out 🌌</h3>
+            <div class="fun-grid">
+                <a href="https://stars.chromeexperiments.com/" class="fun-btn" target="_blank">✨ 100k stars</a>
+                <a href="https://www.spacex.com/vehicles/starship/" class="fun-btn" target="_blank">🚀 starship</a>
+                <a href="https://radio.garden/" class="fun-btn" target="_blank">📻 radio.garden</a>
+                <a href="https://theuselessweb.com/" class="fun-btn" target="_blank">🌐 random site</a>
+                <a href="https://www.nasa.gov/live" class="fun-btn" target="_blank">🛰️ nasa live</a>
+                <a href="https://animatedbackgrounds.me/" class="fun-btn" target="_blank">🎨 anime bg</a>
+                <a href="https://asoftmurmur.com/" class="fun-btn" target="_blank">🎵 space sounds</a>
+                <a href="https://www.windows93.net/" class="fun-btn" target="_blank">💻 win93</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>built with ☕ and too much anime<br>
+            probably updating this at 3am</p>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced star creation
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = window.innerWidth < 768 ? 40 : 100;
+
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                const size = Math.random();
+                
+                if (size < 0.6) star.className = 'star small';
+                else if (size < 0.9) star.className = 'star medium';
+                else star.className = 'star large';
+                
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Create nebula effects
+        function createNebula() {
+            const nebula1 = document.createElement('div');
+            nebula1.className = 'nebula';
+            nebula1.style.width = '300px';
+            nebula1.style.height = '200px';
+            nebula1.style.background = 'radial-gradient(ellipse, rgba(120, 119, 198, 0.3) 0%, transparent 70%)';
+            nebula1.style.top = '20%';
+            nebula1.style.left = '10%';
+            nebula1.style.animationDelay = '0s';
+            
+            const nebula2 = document.createElement('div');
+            nebula2.className = 'nebula';
+            nebula2.style.width = '250px';
+            nebula2.style.height = '180px';
+            nebula2.style.background = 'radial-gradient(ellipse, rgba(255, 119, 198, 0.2) 0%, transparent 70%)';
+            nebula2.style.top = '60%';
+            nebula2.style.right = '15%';
+            nebula2.style.animationDelay = '10s';
+            
+            document.querySelector('.space-bg').appendChild(nebula1);
+            document.querySelector('.space-bg').appendChild(nebula2);
+        }
+
+        // Create comets
+        function createComet() {
+            const comet = document.createElement('div');
+            comet.className = 'comet';
+            comet.style.top = Math.random() * 50 + '%';
+            comet.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            document.querySelector('.space-bg').appendChild(comet);
+            
+            setTimeout(() => comet.remove(), 25000);
+        }
+
+        // Initialize
+        createStars();
+        createNebula();
+        
+        // Create periodic comets
+        setInterval(createComet, 12000);
+        setTimeout(createComet, 3000);
+
+        // Smooth parallax
+        let ticking = false;
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const stars = document.getElementById('stars');
+            const nebulas = document.querySelectorAll('.nebula');
+            
+            stars.style.transform = `translateY(${scrolled * 0.2}px)`;
+            nebulas.forEach((nebula, index) => {
+                nebula.style.transform += ` translateY(${scrolled * (0.1 + index * 0.05)}px)`;
+            });
+            
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        });
+    </script>
 </body>
 </html>
